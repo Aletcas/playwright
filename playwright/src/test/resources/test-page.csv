@@ -1,0 +1,10 @@
+/login,Login Page,chromium
+/dropdown,Dropdown List,chromium
+/javascript_alerts,JavaScript Alerts,chromium
+/checkboxes,Checkboxes,chromium
+/status_codes,Status Codes,chromium
+/login,Login Page,firefox
+/dropdown,Dropdown List,firefox
+/javascript_alerts,JavaScript Alerts,firefox
+/checkboxes,Checkboxes,firefox
+/status_codes,Status Codes,firefox
