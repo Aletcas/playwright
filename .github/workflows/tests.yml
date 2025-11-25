@@ -28,17 +28,24 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y xvfb libgbm-dev
 
+      - name: Install Playwright browsers
+        run: |
+          cd playwright
+          mvn exec:java -Dexec.mainClass="com.microsoft.playwright.CLI" -Dexec.args="install" -B
+
       - name: Run tests with Xvfb
         run: |
+          cd playwright
           export DISPLAY=:0
           Xvfb :0 -screen 0 1280x720x24 >/dev/null 2>&1 &
           mvn clean test -B
         env:
-          ALLURE_RESULTS_DIR: target/allure-results
+          ALLURE_RESULTS_DIR: playwright/target/allure-results
 
       - name: Generate Allure Report
         if: always()
         run: |
+          cd playwright
           mvn allure:report -B
 
       - name: Upload Allure Report as artifact
@@ -46,6 +53,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
-          path: target/site/allure-maven-plugin
+          path: playwright/target/site/allure-maven-plugin
           retention-days: 30
-
