@@ -31,6 +31,10 @@ public class Config {
         return getPagePath("alerts");
     }
 
+    public static String getDynamicPagePath() {
+        return getPagePath("dynamic");
+    }
+
     public static int getTimeout() {
         return Integer.parseInt(properties.getProperty("timeout"));
     }

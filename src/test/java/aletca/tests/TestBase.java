@@ -10,6 +10,7 @@ import io.qameta.allure.Allure;
 import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayInputStream;
+import java.nio.file.Paths;
 
 public class TestBase {
     protected static final String BASE_URL = "https://the-internet.herokuapp.com";
@@ -23,6 +24,19 @@ public class TestBase {
     protected static ExtentReports extent;
     protected ExtentTest test;
     private boolean testFailed = false;
+
+    protected void startTracing() {
+        context.tracing().start(new Tracing.StartOptions()
+                .setScreenshots(true)
+                .setSnapshots(true)
+                .setSources(true)); // тоже полезно
+    }
+
+    protected void stopAndSaveTracing(String fileName) {
+        context.tracing().stop(new Tracing.StopOptions()
+                .setPath(Paths.get("target/traces/" + fileName)));
+    }
+
 
     @BeforeAll
     public static void setUpBeforeAll() {
