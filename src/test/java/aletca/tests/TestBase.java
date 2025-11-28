@@ -1,6 +1,5 @@
-package aletca.tests;
+package aletca.tests.base;
 
-import aletca.utils.Config;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
