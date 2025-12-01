@@ -1,8 +1,8 @@
 package aletca.task_11.utils;
 
 public enum PlusUrl {
-       DYNAMIC("/dynamic_loading/1");
-
+       DYNAMIC("/dynamic_loading/1"),
+       CONTROLS("/dynamic_controls");
 
     private final String path;
 
