@@ -25,7 +25,7 @@ public class FakerGenerTest {
 
             // Проверяем, что имя отображается
             boolean isNameDisplayed = page.locator("text=" + generatedName).isVisible();
-            System.out.println(isNameDisplayed);
+            System.out.println("Имя '" + generatedName + "' отображается: " + isNameDisplayed);
         }
     }
 }
