@@ -1,4 +1,4 @@
-package aletca.task_11.tests;
+package aletca.task_10.tests;
 
 import com.microsoft.playwright.APIRequestContext;
 import com.microsoft.playwright.APIResponse;

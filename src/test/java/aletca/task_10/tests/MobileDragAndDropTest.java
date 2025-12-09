@@ -1,4 +1,4 @@
-package aletca.task_11.tests;
+package aletca.task_10.tests;
 
 import com.microsoft.playwright.*;
 import org.junit.jupiter.api.AfterEach;

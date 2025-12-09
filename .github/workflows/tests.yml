@@ -1,4 +1,4 @@
-name: Java CI with Playwright and Allure
+name: Java CI with Playwright (Desktop + Mobile)
 
 on: [push]
 
@@ -30,28 +30,52 @@ jobs:
 
       - name: Install Playwright browsers
         run: |
-          cd playwright
-          mvn exec:java -Dexec.mainClass="com.microsoft.playwright.CLI" -Dexec.args="install" -B
+          mvn exec:java -Dexec.mainClass="com.microsoft.playwright.CLI" -Dexec.args="install chromium" -B
 
-      - name: Run tests with Xvfb
+      - name: Run desktop tests
         run: |
-          cd playwright
           export DISPLAY=:0
           Xvfb :0 -screen 0 1280x720x24 >/dev/null 2>&1 &
-          mvn clean test -B
+          mvn test -Dtest="*Test" -DexcludeTests="*Mobile*Test" -B
         env:
-          ALLURE_RESULTS_DIR: playwright/target/allure-results
+          ALLURE_RESULTS_DIR: target/allure-results
+          PLAYWRIGHT_HEADLESS: "true"
+
+      - name: Run mobile tests
+        run: |
+          export DISPLAY=:0
+          Xvfb :0 -screen 0 1920x1080x24 >/dev/null 2>&1 &
+          mvn test -Dtest="*Mobile*Test" -B
+        env:
+          ALLURE_RESULTS_DIR: target/allure-results
+          PLAYWRIGHT_HEADLESS: "true"
+
+      - name: Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            target/playwright-report/
+            test-results/
+          retention-days: 30
+
+      - name: Install Allure CLI
+        if: always()
+        run: |
+          sudo wget https://github.com/allure-framework/allure2/releases/download/2.24.0/allure-2.24.0.tgz
+          sudo tar -zxvf allure-2.24.0.tgz -C /opt/
+          sudo ln -s /opt/allure-2.24.0/bin/allure /usr/bin/allure
 
       - name: Generate Allure Report
         if: always()
         run: |
-          cd playwright
-          mvn allure:report -B
+          allure generate target/allure-results -o target/allure-report --clean
 
-      - name: Upload Allure Report as artifact
+      - name: Upload Allure Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
-          path: playwright/target/site/allure-maven-plugin
+          path: target/allure-report
           retention-days: 30

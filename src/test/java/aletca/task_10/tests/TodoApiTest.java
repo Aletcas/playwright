@@ -1,4 +1,4 @@
-package aletca.task_11.tests;
+package aletca.task_10.tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.playwright.APIRequest;

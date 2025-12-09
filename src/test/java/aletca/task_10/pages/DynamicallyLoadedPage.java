@@ -1,4 +1,4 @@
-package aletca.task_11.pages;
+package aletca.task_10.pages;
 
 import com.microsoft.playwright.Page;
 

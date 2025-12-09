@@ -1,4 +1,4 @@
-package aletca.task_11.utils;
+package aletca.task_10.utils;
 
 import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.Tracing;

@@ -1,8 +1,8 @@
-package aletca.task_11.tests;
+package aletca.task_10.tests;
 
-import aletca.task_11.pages.DynamicallyLoadedPage;
-import aletca.task_11.utils.PlusUrl;
-import aletca.task_11.utils.Traceable;
+import aletca.task_10.pages.DynamicallyLoadedPage;
+import aletca.task_10.utils.PlusUrl;
+import aletca.task_10.utils.Traceable;
 import com.microsoft.playwright.Page;
 import io.qameta.allure.Allure;
 import org.junit.jupiter.api.Test;

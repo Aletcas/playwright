@@ -1,7 +1,7 @@
-package aletca.task_11.tests;
+package aletca.task_10.tests;
 
-import aletca.task_11.utils.PlusUrl;
-import aletca.task_6_10.utils.Config;
+import aletca.task_10.utils.PlusUrl;
+import aletca.task_6_9.utils.Config;
 import com.microsoft.playwright.*;
 import org.junit.jupiter.api.*;
 
