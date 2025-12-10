@@ -2,6 +2,7 @@ package aletca.task_11.pages;
 
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.options.WaitForSelectorState;
 
 public class DynamicControlsPage {
     private final Page page;
@@ -18,7 +19,9 @@ public class DynamicControlsPage {
 
     public void clickRemoveButton() {
         removeButton.click();
-        message.waitFor();
+        page.waitForCondition(() ->
+                        message.isVisible() || !checkbox.isVisible(),
+                new Page.WaitForConditionOptions().setTimeout(10000));
     }
 
     public boolean isCheckboxVisible() {

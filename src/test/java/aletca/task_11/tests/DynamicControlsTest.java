@@ -5,6 +5,7 @@ import aletca.task_11.pages.DynamicControlsPage;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DynamicControlsTest {
 
@@ -14,6 +15,8 @@ public class DynamicControlsTest {
 
         try {
             DynamicControlsPage page = new DynamicControlsPage(context.getPage());
+
+            assertTrue(page.isCheckboxVisible());
 
             page.clickRemoveButton();
 
