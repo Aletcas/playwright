@@ -1,44 +1,47 @@
-name: Run Tests with Allure
-
+name: Tests with Allure
 on: [push]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Java
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        
-    - name: Install Playwright
-      run: npx playwright install chromium
-      
-    - name: Run tests
-      run: mvn clean test -Dheadless=true
-      env:
-        ALLURE_RESULTS_DIR: target/allure-results
-        
-    - name: Install Allure
-      if: always()
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y allure
-        
-    - name: Generate Allure Report
-      if: always()
-      run: |
-        allure generate target/allure-results -o allure-report --clean
-        
-    - name: Upload Report
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-report
-        path: allure-report/
-        retention-days: 30
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Cache Maven
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: maven-${{ hashFiles('pom.xml') }}
+
+      - name: Install Playwright
+        run: npx playwright install chromium
+
+      - name: Run Maven tests
+        run: mvn clean test -Dheadless=true
+        env:
+          ALLURE_RESULTS_DIR: target/allure-results
+
+      - name: Get Allure CLI
+        run: |
+          wget -q https://github.com/allure-framework/allure2/releases/download/2.24.0/allure-2.24.0.tgz
+          tar -xzf allure-2.24.0.tgz -C /opt/
+          sudo ln -sf /opt/allure-2.24.0/bin/allure /usr/local/bin/allure
+
+      - name: Generate Allure report
+        if: always()
+        run: |
+          allure generate target/allure-results -o allure-report --clean
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4  # ← v4 вместо v3!
+        with:
+          name: allure-report
+          path: allure-report/
+          retention-days: 30
+
